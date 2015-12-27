@@ -4,28 +4,31 @@ import time
 import sys
 import curses
 
-from stock import Stock
+from classes.stock import Stock
+from classes.market import Market
 #------------------------------------------
 
 if __name__ == "__main__":
-    stdscr = curses.initscr()
-    curses.noecho()
-    curses.cbreak()
+    #stdscr = curses.initscr()
+    #curses.echo()
+    #curses.cbreak()
+    #curses.nocbreak()
 
     timeArray = [0]
     s = Stock("Test", "T", 100)
-    for i in xrange(1,1000):
+    m = Market()
+    for i in xrange(1, 2000):
         timeArray.append(i)
-        s.changeByTime()
-        stdscr.addstr(0, 0, s.getPerformance())
-        time.sleep(0.5);
-        stdscr.refresh()
+        # s.changeByTime()
+        m.increaseTime()
+        #stdscr.addstr(0, 0, m.printMarketText().get_string())
+        #stdscr.refresh()
+        #time.sleep(0.5)
 
+    #curses.endwin()
+    print m.printMarketText()
 
-print s.getPerformance()
+    for i in m.stocks:
+        plt.plot(timeArray, i.getAllValues())
 
-
-#plt.plot(timeArray, s.getAllValues())
-plt.plot([0, 6, 0, 20], [0,1,2,3])
-plt.plot([1, 7, 1, 21], [0,1,2,3])
-plt.show()
+    plt.show()
